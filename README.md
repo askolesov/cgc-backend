@@ -1,1 +1,1 @@
-# cgc-backend
+A platform for code game challenges
