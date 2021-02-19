@@ -1,0 +1,32 @@
+{
+  "name": "cgc-cloud",
+  "version": "1.0.0",
+  "description": "A platform for code game challenges",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "nodemon src/app.ts",
+    "build": "parcel build src/app.ts --target node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askolesov/cgc-cloud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/askolesov/cgc-cloud/issues"
+  },
+  "homepage": "https://github.com/askolesov/cgc-cloud#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.28",
+    "nodemon": "^2.0.7",
+    "parcel-bundler": "^1.12.4",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5"
+  }
+}
