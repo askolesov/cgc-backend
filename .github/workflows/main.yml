@@ -10,10 +10,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Build the image
         run: |
-          echo ghcr.io/${{ github.repository }}/${{ github.repository }}:latest
           echo ${{ secrets.GH_PAT }} | docker login ghcr.io --username ${{ secrets.GH_USER }} --password-stdin
-          docker build --no-cache -t ${{ github.repository }} .
+          docker build --no-cache -t ghcr.io/${{ github.repository }}/cgc-cloud:latest
       - name: Publish the image
         run: |
-          docker tag ${{ github.repository }} ghcr.io/${{ github.repository }}/${{ github.repository }}:latest
-          docker push ghcr.io/${{ github.repository }}/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}/cgc-cloud:latest
