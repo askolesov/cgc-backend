@@ -1,0 +1,17 @@
+name: cd
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+      - name: If NOT found in cache, build and push image.
+        if: steps.cache-image-lint.outputs.cache-hit != 'true'
+        run: |
+          echo ${{ secrets.GH_PAT }} | docker login ghcr.io --username ${{ secrets.GH_USER }} --password-stdin
+          docker build --no-cache -t ${{ github.repository }} .
+          docker tag ${{ github.repository }} ghcr.io/${{ github.repository }}/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}/${{ github.repository }}:latest
