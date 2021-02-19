@@ -11,7 +11,7 @@ jobs:
       - name: Build
         run: |
           echo ${{ secrets.GH_PAT }} | docker login ghcr.io --username ${{ secrets.GH_USER }} --password-stdin
-          docker build --no-cache -t ghcr.io/${{ github.repository }}/cgc-cloud:latest .
+          docker build --no-cache -t ghcr.io/${{ github.repository }}:latest .
       - name: Publish
         run: |
-          docker push ghcr.io/${{ github.repository }}/cgc-cloud:latest
+          docker push ghcr.io/${{ github.repository }}:latest
