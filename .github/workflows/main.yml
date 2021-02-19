@@ -3,15 +3,15 @@ name: cd
 on: [push, workflow_dispatch]
 
 jobs:
-  build:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Git checkout
+      - name: Checkout
         uses: actions/checkout@v2
-      - name: Build the image
+      - name: Build
         run: |
           echo ${{ secrets.GH_PAT }} | docker login ghcr.io --username ${{ secrets.GH_USER }} --password-stdin
           docker build --no-cache -t ghcr.io/${{ github.repository }}/cgc-cloud:latest .
-      - name: Publish the image
+      - name: Publish
         run: |
           docker push ghcr.io/${{ github.repository }}/cgc-cloud:latest
