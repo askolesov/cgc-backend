@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import MasterRouter from './routers/master-router'
+import MasterRouter from './routers/master-router';
 
 // load the environment variables from the .env file
 dotenv.config({
