@@ -1,6 +1,8 @@
-name: cd
+name: publish-docker
 
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches: main
 
 jobs:
   build-and-publish:
