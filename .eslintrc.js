@@ -26,5 +26,10 @@ module.exports = {
   "env": {
     "es6": true,
     "node": true
+  },
+  "rules": {
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "no-console": "off"
   }
 }
