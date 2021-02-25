@@ -1,27 +1,10 @@
 import { Request, Response, Router } from 'express';
-import GreetingController from '../controllers/greeting-controller';
+import { greetingService } from '../services/greeting-service';
 
-class GreetingRouter {
-  private router = Router();
+export const greetingRouter = Router();
 
-  private controller = GreetingController;
-
-  get get_router() {
-    return this.router;
-  }
-
-  constructor() {
-    this.configure();
-  }
-
-  /**
-   * Connect routes to their matching controller endpoints.
-   */
-  private configure() {
-    this.router.get('/', (request: Request, response: Response) => {
-      response.status(200).json(this.controller.defaultMethod());
+greetingRouter.get('/', (request: Request, response: Response) => {
+    response.status(200).json({
+        greeting: greetingService.sayHello('world'),
     });
-  }
-}
-
-export = new GreetingRouter().get_router;
+});
