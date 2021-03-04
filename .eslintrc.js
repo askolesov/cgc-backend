@@ -30,6 +30,7 @@ module.exports = {
   "rules": {
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }
