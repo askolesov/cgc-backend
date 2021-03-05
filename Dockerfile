@@ -22,6 +22,6 @@ COPY --from=builder dist .
 RUN groupadd -r app && useradd -r -g app app
 USER app
 
-EXPOSE 5000
+ENV PORT=5000
 
 CMD [ "node", "app.js" ]
