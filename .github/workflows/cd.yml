@@ -13,7 +13,7 @@ jobs:
       - name: Build
         run: |
           npm run image
-          docker tag gcg-cloud ghcr.io/${{ github.repository }}:latest
+          docker tag cgc-cloud ghcr.io/${{ github.repository }}:latest
       - name: Publish
         run: |
           echo ${{ secrets.GH_PAT }} | docker login ghcr.io --username ${{ secrets.GH_USER }} --password-stdin
