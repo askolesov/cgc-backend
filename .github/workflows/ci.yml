@@ -47,3 +47,13 @@ jobs:
           npm install
           npm run image
           npm run system-tests
+
+  docker-types:
+    runs-on: ubuntu-latest
+    container: node
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install docker
+        run: |
+          which docker
