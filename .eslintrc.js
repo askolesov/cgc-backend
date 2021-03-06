@@ -31,6 +31,8 @@ module.exports = {
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
     "no-console": "off",
-    "@typescript-eslint/no-misused-promises": "off"
+    "@typescript-eslint/no-misused-promises": "off",
+    "max-classes-per-file": "off",
+    "radix": "off"
   }
 }

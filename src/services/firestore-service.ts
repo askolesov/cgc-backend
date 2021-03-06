@@ -1,20 +1,18 @@
 import { Firestore, setLogFunction } from '@google-cloud/firestore';
+import { configService } from './config-service';
 
 class FirestoreService {
     private db: Firestore;
 
     constructor() {
-        // this.db = new Firestore({
-        //     projectId: process.env.PROJECT_ID,
-        //     credentials: JSON.parse(process.env.GOOGLE_KEY!),
-        // });
-
-        setLogFunction(console.log);
+        if (configService.firestore.log) {
+            setLogFunction(console.log);
+        }
 
         this.db = new Firestore({
-            projectId: 'qwerty',
-            host: 'localhost:8080',
-            ssl: false,
+            projectId: configService.firestore.project_id,
+            host: configService.firestore.host,
+            ssl: configService.firestore.ssl,
         });
     }
 
