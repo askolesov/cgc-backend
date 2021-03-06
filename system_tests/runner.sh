@@ -1,59 +1,35 @@
 # Runner config
-TESTS_DIR=${1:-"system_tests"}  # First arg is the location of the directory where to look for tests. Default value is system_tests.
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )" # Location of the runner
 LOG_PREFIX="[run all]"
 
-# App config
-APP_IMAGE_NAME="cgc-cloud"
-APP_PORT="6000"
-
-# Emulators config
-# TODO: ...
 
 log() {
   echo "${LOG_PREFIX} ${1}"
 }
 
-start_app() {
-  log "Running app"
-  
-  local container_id=$(docker run -dt --rm -e PORT=${APP_PORT} ${APP_IMAGE_NAME})
-
-  # Setting return value. It's name - 1st param.
-  local __resultvar=$1
-  eval $__resultvar="'${container_id}'"
+env_up() {
+  log "Setting up test environment"
+  docker-compose --project-directory "${DIR}/docker" --file "${DIR}/docker/docker-compose.yml" up -d
 }
 
-stop_app() {
-  log "Stopping app"
-
-  local container_id=$1
-  docker kill "${container_id}"
-}
-
-start_emulators() {
-  log "Running emulators"
-}
-
-stop_emulators() {
-  log "Stopping emulators"
+env_down() {
+  log "Shutting down test environment"
+  docker-compose --project-directory "${DIR}/docker" --file "${DIR}/docker/docker-compose.yml" down
 }
 
 reset_emulators() {
-  log "Resetting emulators"
-
-  # Fixme: implement normal logic
-  stop_emulators
-  start_emulators
+  log "Resetting emulators" # TODO
 }
+
 
 # Global init
 set -euo pipefail
 
-# Main logic
-TEST_FILES=$(find ${TESTS_DIR} -type f -name "*.ts")
 
-start_app CONTAINER_ID
-start_emulators
+# Main logic
+TEST_FILES=$(find ${DIR}/tests -type f -name "*.ts")
+
+env_up
 
 for TEST_FILE in ${TEST_FILES}; do
   log "Running ${TEST_FILE}"
@@ -62,11 +38,11 @@ for TEST_FILE in ${TEST_FILES}; do
     log "$TEST_FILE finished successfully"
   else
     log "$TEST_FILE falied"
+    env_down
     exit 1
   fi
 
   reset_emulators
 done
 
-stop_app $CONTAINER_ID
-stop_emulators
+env_down
