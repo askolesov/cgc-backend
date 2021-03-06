@@ -41,8 +41,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: System tests
-        run: |
-          npm install
-          npm run image
-          npm run system-tests
+      - name: Installing dependencies
+        run: npm install
+      
+      - name: Building app image
+        run: npm run image
+      
+      - name: Running system tests
+        run: npm run system-tests
