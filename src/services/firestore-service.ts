@@ -1,5 +1,5 @@
 import { Firestore, setLogFunction } from '@google-cloud/firestore';
-import { configService } from "./config-service";
+import { configService } from './config-service';
 
 class FirestoreService {
     private db: Firestore;
@@ -11,7 +11,6 @@ class FirestoreService {
 
         this.db = new Firestore({
             projectId: configService.firestore.project_id,
-            credentials: configService.firestore.credentials == undefined ? undefined : JSON.parse(configService.firestore.credentials),
             host: configService.firestore.host,
             ssl: configService.firestore.ssl,
         });

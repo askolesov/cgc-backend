@@ -1,24 +1,32 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import { expect } from 'chai';
 import axios from 'axios';
+/* eslint import/no-extraneous-dependencies: 2 */
 
 // TODO: Separate config?
-const api_base_path: string = process.env.API_BASE_PATH == undefined ? "http://localhost:5000/api" : process.env.API_BASE_PATH;
+const apiBasePath: string =
+    process.env.API_BASE_PATH === undefined ? 'http://localhost:5000/api' : process.env.API_BASE_PATH;
 
-const log = console.log;    // TODO: Better logging
+const { log } = console; // TODO: Better logging
 
-async function main() {
-    let test_value = "test";
-
-    log("Setting test value");
-    await axios.get(`${api_base_path}/firestore/set`, {responseType: 'json', params: { value: test_value}});
-
-    log("Getting test value");
-    let resp = await axios.get(`${api_base_path}/firestore/get`, {responseType: 'json'});
-
-    expect(resp.data.value).equal(test_value);
+class Resp {
+    public value: string | undefined;
 }
 
-main().catch((err) => {
-    log(err);
+async function main() {
+    const testValue = 'test';
+
+    log('Setting test value');
+    await axios.get(`${apiBasePath}/firestore/set`, { responseType: 'json', params: { value: testValue } });
+
+    log('Getting test value');
+    const resp = await axios.get<Resp>(`${apiBasePath}/firestore/get`, { responseType: 'json' });
+
+    expect(resp.data.value as string).equal(testValue);
+}
+
+main().catch(error => {
+    log(error);
+    // eslint-disable-next-line unicorn/no-process-exit
     process.exit(1);
 });

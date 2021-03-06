@@ -1,1 +1,1 @@
-export let info = console.log;
+export const info = console.log;

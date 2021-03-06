@@ -1,6 +1,6 @@
 import express from 'express';
 import { masterRouter } from './routers/master-router';
-import { configService } from "./services/config-service";
+import { configService } from './services/config-service';
 
 const app = express();
 
