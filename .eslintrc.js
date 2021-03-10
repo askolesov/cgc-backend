@@ -33,6 +33,8 @@ module.exports = {
     "no-console": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "max-classes-per-file": "off",
-    "radix": "off"
+    "radix": "off",
+    "no-restricted-syntax": "off",
+    "@typescript-eslint/no-loop-func": "off"
   }
 }
