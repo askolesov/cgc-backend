@@ -3,15 +3,16 @@ import { describe } from 'mocha';
 import { EvalExecutor } from './eval-executor';
 import { IsolateExecutor } from './isolate-executor';
 
-const executors = [EvalExecutor, IsolateExecutor];
+const executors = [IsolateExecutor, EvalExecutor];
 
 for (const ExecutorTypeReference of executors) {
     describe(ExecutorTypeReference.name, () => {
-        it('calls code', () => {
+        it('executes empty function', () => {
             const code = 'function main() {}';
             const executor = new ExecutorTypeReference(code);
             executor.execute('main');
         });
+
         it('returns string', () => {
             const code = "function main() {return 'black cat'}";
             const executor = new ExecutorTypeReference(code);
@@ -19,15 +20,32 @@ for (const ExecutorTypeReference of executors) {
 
             expect(result).to.equal('black cat');
         });
-        it('summs different types', () => {
-            const code = 'function main(a, b) {return a + b}';
+
+        it('returns object', () => {
+            const code = "function main() {return {a: 1, b: 'str'}}";
+            const executor = new ExecutorTypeReference(code);
+            const result = executor.execute<string>('main');
+
+            expect(result).to.deep.equal({ a: 1, b: 'str' });
+        });
+
+        it('takes object', () => {
+            const code = 'function main(obj) { obj.age = 34; return obj;}';
+            const executor = new ExecutorTypeReference(code);
+            const result = executor.execute<string>('main', { name: 'alex' });
+
+            expect(result).to.deep.equal({ name: 'alex', age: 34 });
+        });
+
+        it('takes and calls callback', () => {
+            const code = 'function main(f) { f(2); }';
             const executor = new ExecutorTypeReference(code);
 
-            const result1 = executor.execute<string>('main', 'ab', 'ba');
-            expect(result1).to.equal('abba');
+            const context = { value: 0 };
+            const closure = (x: number) => (context.value = x);
 
-            const result2 = executor.execute<number>('main', 2, 3);
-            expect(result2).to.equal(5);
+            executor.execute<string>('main', closure);
+            expect(context).to.deep.equal({ value: 2 });
         });
     });
 }

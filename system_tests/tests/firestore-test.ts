@@ -1,7 +1,7 @@
-/* eslint import/no-extraneous-dependencies: 0 */
+/* eslint-disable import/no-extraneous-dependencies */
 import { expect } from 'chai';
 import axios from 'axios';
-/* eslint import/no-extraneous-dependencies: 2 */
+/* eslint-enable import/no-extraneous-dependencies */
 
 // TODO: Separate config?
 const apiBasePath: string =

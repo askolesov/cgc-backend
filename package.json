@@ -38,7 +38,7 @@
     "@typescript-eslint/parser": "^4.15.1",
     "axios": "^0.21.1",
     "chai": "^4.3.0",
-    "eslint": "^7.20.0",
+    "eslint": "^7.21.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
