@@ -16,7 +16,8 @@ module.exports = {
     "airbnb-typescript/base",
     "plugin:eslint-comments/recommended",
     "prettier", // eslint-config-prettier, disables conflicting eslint riles
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:eslint-comments/recommended" // ensures that disabled checks are enabled again
   ],
   "parserOptions": {
     "ecmaVersion": 2021,
@@ -33,6 +34,9 @@ module.exports = {
     "no-console": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "max-classes-per-file": "off",
-    "radix": "off"
+    "radix": "off",
+    "no-restricted-syntax": "off",
+    "@typescript-eslint/no-loop-func": "off",
+    "no-return-assign": "off"
   }
 }
